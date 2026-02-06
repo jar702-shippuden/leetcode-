@@ -1,0 +1,12 @@
+class Solution(object):
+    def jump(self, nums):
+        res = 0 #start at index 
+        cur_end = 0 #pointer 1 
+        farthest = 0 # pointer 2
+
+        for i in range(len(nums) - 1): #length of array scanned
+            farthest = max(farthest, i + nums[i]) # calculate range of jump
+            if i == cur_end: #logic to decide action
+                res += 1
+                cur_end = farthest
+        return res
