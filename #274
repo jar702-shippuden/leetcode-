@@ -1,0 +1,21 @@
+class Solution(object):
+    def hIndex(self, citations):
+        n = len(citations)
+        # Buckets: paper_counts[k] = number of papers with exactly k citations
+        # [0] * (n + 1) creates a list of length n+1 filled with 0s
+        paper_counts = [0] * (n+1)
+
+        for c in citations:
+            # min(n, c): cap citation count at n (h-index cannot exceed n)
+            # += 1: increase the count in that bucket by 1
+            paper_counts[min(n, c)] += 1 #bucket algorithm
+        # Start from the largest possible h (n)
+        h = n
+        papers = paper_counts[n]
+        # Decrease h until we have at least h papers with ≥ h citations
+        while papers < h:
+            h -= 1 #decrement
+            papers += paper_counts[h]
+
+        return h
+        
